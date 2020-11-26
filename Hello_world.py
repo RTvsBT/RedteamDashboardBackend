@@ -36,4 +36,4 @@ def api_gethostname():
 def page_not_found(e):
     return jsonify({'error': 'Not found 404'}), 404
 
-app.run()
+app.run(host='0.0.0.0')
