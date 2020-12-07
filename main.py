@@ -91,5 +91,5 @@ def api_hids3_attack(host):
 @app.errorhandler(404)
 def page_not_found(e):
     return jsonify({'error': 'Not found 404'}), 404
-
-app.run(host='0.0.0.0')
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
