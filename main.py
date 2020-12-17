@@ -27,8 +27,8 @@ def home():
 @app.route('/<attack>')
 @app.route('/<attack>/<host>')
 def attackRouter(attack, host="192.168.2.35"):
-    cmd = ["python3","/opt/AutomatedAttackScript/main.py", "-p", attack, "--host", host]
-    return jsonify(command=attack, consoleCommand=f'python3 main.py -p {attack} --host {host}',  output=command_runner(cmd))
+    cmd = ["python3","/opt/AutomatedAttackScript/main.py", "-p='", attack, "' --host='", host,"'"]
+    return jsonify(command=attack, consoleCommand=f'python3 /opt/AutomatedAttackScript/main.py -p {attack} --host {host}',  output=command_runner(cmd))
 
 #Error 
 @app.errorhandler(404)
