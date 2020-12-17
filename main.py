@@ -11,8 +11,8 @@ attacks = ["DDOS","SQLI","RANSOMWARE","NMAP","BRUTEFORCE"]
 
 def command_runner(cmd):
     p = subprocess.Popen(cmd, stdout = subprocess.PIPE,
-                            stderr=subprocess.PIPE,
-                            stdin=subprocess.PIPE)
+                            stderr=subprocess.STDOUT,
+                            shell=False)
     out,err = p.communicate()
     out = out.decode()
     return out
@@ -27,8 +27,8 @@ def home():
 @app.route('/<attack>')
 @app.route('/<attack>/<host>')
 def attackRouter(attack, host="192.168.2.35"):
-    cmd = ["python3","/opt/AutomatedAttackScript/main.py", "-p='", attack, "' --host='", host,"'"]
-    return jsonify(command=attack, consoleCommand=f'python3 /opt/AutomatedAttackScript/main.py -p {attack} --host {host}',  output=command_runner(cmd))
+    cmd = ["python3","/opt/AutomatedAttackScript/main.py", f"-p={attack}", "--host={host}"]
+    return jsonify(command=attack, consoleCommand=" ".join(cmd),  output=command_runner(cmd))
 
 #Error 
 @app.errorhandler(404)
